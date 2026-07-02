@@ -1,57 +1,62 @@
 # Stock Price Prediction using Machine Learning
-## Problem Statement
 
-The goal of this project is to predict the **next day’s closing stock price** using historical stock market data. This is a regression problem and demonstrates a complete beginner-friendly machine learning workflow suitable for an ML internship.
+This project predicts the next trading day's closing stock price from historical
+OHLCV-style market data. It uses a small synthetic dataset so the full workflow
+can run locally without downloading external data.
 
-## Dataset Description
+## What the script does
 
-The dataset simulates realistic stock market data with the following features:
+1. Builds a reproducible sample stock dataset with realistic price relationships
+2. Sorts observations chronologically to avoid look-ahead leakage
+3. Adds simple engineered features:
+   - Daily return
+   - 5-day moving average
+4. Splits the data into training and validation sets without shuffling
+5. Scales numerical features with `StandardScaler`
+6. Trains a `LinearRegression` model
+7. Evaluates validation performance with RMSE
+8. Plots actual vs. predicted close prices
 
-* **Date** – Trading date
-* **Open** – Opening price of the stock
-* **High** – Highest price of the day
-* **Low** – Lowest price of the day
-* **Close** – Closing price of the stock
-* **Volume** – Number of shares traded
+## Setup
 
-The target variable is the **next day’s closing price**.
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-## Approach
+On macOS or Linux, activate the environment with:
 
-1. Loaded structured financial data using Pandas
-2. Sorted data chronologically to avoid data leakage
-3. Performed feature engineering:
+```bash
+source .venv/bin/activate
+```
 
-   * **Daily Return**: Measures intraday price movement
-   * **5-Day Moving Average**: Captures short-term price trends
-4. Split data into training and validation sets without shuffling
-5. Scaled numerical features using StandardScaler
-6. Trained a **Linear Regression** model
-7. Evaluated performance using **Root Mean Squared Error (RMSE)**
-8. Visualized actual vs predicted stock prices
+## Usage
 
+Run the full script and show the chart:
+
+```bash
+python stock_price_prediction.py
+```
+
+Run without opening a plot window:
+
+```bash
+python stock_price_prediction.py --no-plot
+```
 
 ## Tools Used
 
-* Python
-* Pandas
-* NumPy
-* scikit-learn
-* Matplotlib
-
-
-
-## Results
-
-The Linear Regression model was able to capture basic trends in the stock price data. RMSE was used to evaluate prediction accuracy, as it penalizes large errors and is suitable for regression problems involving continuous values like prices.
-
+- Python
+- Pandas
+- NumPy
+- scikit-learn
+- Matplotlib
 
 ## Future Improvements
 
-* Use real stock data from Yahoo Finance or NSE
-* Try more advanced models such as Random Forest
-* Add technical indicators like RSI or MACD
-* Perform cross-validation
-* Extend prediction to multiple future days
-
-
+- Replace the synthetic dataset with real market data from a source such as Yahoo Finance
+- Add more technical indicators, such as RSI, MACD, and Bollinger Bands
+- Compare baseline models against tree-based and time-series models
+- Add automated tests for feature engineering and data splitting
+- Add GitHub Actions to run linting and tests on pull requests
