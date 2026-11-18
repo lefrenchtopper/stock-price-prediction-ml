@@ -96,4 +96,4 @@ if __name__ == "__main__":
         help="Run the model without opening the matplotlib chart.",
     )
     args = parser.parse_args()
-    main(show_plot=not args.no_plot)
+    main(show_plot=not args.no_plot
